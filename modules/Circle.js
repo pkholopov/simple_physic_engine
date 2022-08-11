@@ -9,7 +9,7 @@ export class Circle {
     }
 
     setVelocity(data) {
-        this.velocity = new Vector(data)
+        this.velocity = new Vector(data, this.c)
     }
     
     draw() {
