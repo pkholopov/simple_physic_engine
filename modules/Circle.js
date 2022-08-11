@@ -1,7 +1,7 @@
 import { Vector } from "./Vector.js"
 
 export class Circle {
-    constructor(x, y, radius, canvas) {
+    constructor({x, y, radius, canvas}) {
         this.x = x
         this.y = y
         this.radius = radius
