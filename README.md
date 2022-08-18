@@ -1,3 +1,3 @@
-# ultra_mega_physic_engine_9000
+# Ultra Mega_ Physic Engine_9000
 
 Ультра мега физический движок 9000. Чего тут непонятного?
