@@ -17,6 +17,7 @@ export class Engine {
         this.lastUpdateTime = 0
 
         this.isRun = false
+        this.showInfo = false
 
         this.setCanvas()
     }
@@ -78,9 +79,12 @@ export class Engine {
                     })
                     let speed = relVelocity.dotProduct(nCollisionVector)
                     if (speed < 0) break
-                    nCollisionVector.scale(speed)
-                    obj1.velocity.substract(nCollisionVector)
-                    obj2.velocity.add(nCollisionVector)
+                    let impulse = 2 * speed / (obj1.mass + obj2.mass)
+                    nCollisionVector.scale(impulse)
+                    
+
+                    obj1.velocity.substract(nCollisionVector.scaleToNew(obj2.mass))
+                    obj2.velocity.add(nCollisionVector.scaleToNew(obj1.mass))
                 }
             }
         }
@@ -134,6 +138,10 @@ export class Engine {
         this.c.clearRect(0, 0, this.w, this.h)
         for (const object of this.objects) {
             object.draw()
+            if(this.showInfo) {
+                object.drawVelocity()
+                object.drawMass()
+            }
         }
     }
 
