@@ -3,12 +3,12 @@ import { Engine } from "./Engine.js";
 
 const e = new Engine({
     canvas: 'canvas',
-    width: 800,
-    height: 600
+    width: 600,
+    height: 500
 })
 
 e.setGravity(8, 90)
-e.setBoundingBox(0, 0, 800, 600)
+e.setBoundingBox(0, 0, 600, 500)
 
 const circle = e.createObject({
     type: 'circle', 
@@ -24,8 +24,8 @@ circle.setVelocity({
 
 const c2 = e.createObject({
     type: 'circle',
-    x: 600,
-    y: 500,
+    x: 400,
+    y: 400,
     radius: 30
 })
 
@@ -175,9 +175,6 @@ cnv.addEventListener('click', (event) => {
         x: event.offsetX,
         y: event.offsetY,
         radius: 50
-    }).setVelocity({
-        value: 0,
-        direction: 0
     })
     e.render()
 })

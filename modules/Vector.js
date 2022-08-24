@@ -61,6 +61,13 @@ export class Vector {
         this.y /= this.value
     }
 
+    // отражение вектора от прямой. Для расчёта необходимо передать вектор-нормаль к прямой
+    reflect(normal) {
+        if (normal.value !== 1) normal.normalize()
+        normal.scale(2 * this.dotProduct(normal))
+        this.substract(normal)
+    }
+
     // temporal method
     draw(x = 0, y = 0) {
         this.c.beginPath()

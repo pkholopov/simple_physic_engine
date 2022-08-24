@@ -56,18 +56,12 @@ export class Engine {
     detectCollision() {
         let obj1, obj2
 
-        for (const object of this.objects) {
-            object.isColliding = false            
-        }
-
         for (let i = 0; i < this.objects.length; i++) {
             obj1 = this.objects[i]
             for (let j = i + 1; j < this.objects.length; j++) {
                 obj2 = this.objects[j]
 
                 if(this.circleIntersect(obj1.x, obj1.y, obj1.radius, obj2.x, obj2.y, obj2.radius)) {
-                    obj1.isColliding = true
-                    obj2.isColliding = true
                     let nCollisionVector = new Vector({
                         x: obj2.x - obj1.x,
                         y: obj2.y - obj1.y
@@ -79,12 +73,10 @@ export class Engine {
                     })
                     let speed = relVelocity.dotProduct(nCollisionVector)
                     if (speed < 0) break
-                    let impulse = 2 * speed / (obj1.mass + obj2.mass)
-                    nCollisionVector.scale(impulse)
-                    
+                    let impulse = 2 * speed / (obj1.mass + obj2.mass)                    
 
-                    obj1.velocity.substract(nCollisionVector.scaleToNew(obj2.mass))
-                    obj2.velocity.add(nCollisionVector.scaleToNew(obj1.mass))
+                    obj1.velocity.substract(nCollisionVector.scaleToNew(obj2.mass * impulse))
+                    obj2.velocity.add(nCollisionVector.scaleToNew(obj1.mass * impulse))
                 }
             }
         }

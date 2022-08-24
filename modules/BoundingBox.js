@@ -21,12 +21,26 @@ export class BoundingBox {
     // функция, в которой я захардкодил нормали. Естественно, следует переделать
     collide(obj, size) {
         let n
-        if (obj.x - size < this.x1) n = new Vector({x: 1, y: 0})
-        if (obj.x + size > this.x2) n = new Vector({x: -1, y: 0})
-        if (obj.y - size < this.y1) n = new Vector({x: 0, y: 1})
-        if (obj.y + size > this.y2) n = new Vector({x: 0, y: -1})
-        n.scale(2 * obj.velocity.dotProduct(n))
-        obj.velocity.substract(n)
+        if (obj.x - size < this.x1) {
+            obj.x = this.x1 + size
+            n = new Vector({x: 1, y: 0})
+        }
+        if (obj.x + size > this.x2) {
+            obj.x = this.x2 - size
+            n = new Vector({x: -1, y: 0})
+        }
+        if (obj.y - size < this.y1) {
+            obj.y = this.y1 + size
+            n = new Vector({x: 0, y: 1})
+        }
+        if (obj.y + size > this.y2) {
+            obj.y = this.y2 - size
+            n = new Vector({x: 0, y: -1})
+        }
+        // n.scale(2 * obj.velocity.dotProduct(n))
+        // obj.velocity.substract(n)
+
+        obj.velocity.reflect(n)
     }
 
 }
